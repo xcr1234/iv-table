@@ -5,11 +5,11 @@
 引入
 
 ```bash
-npm install iv-table
+npm install iv-tables
 ```
 
 ```javascript
-import IvTable from 'iv-table'
+import IvTable from 'iv-tables'
 
 Vue.use(IvTable)
 ```
