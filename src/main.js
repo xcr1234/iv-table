@@ -6,9 +6,7 @@ import IvTable from './plugin'
 
 Vue.config.productionTip = false
 Vue.use(iView)
-Vue.use(IvTable, {
-  enableEventRename: true
-})
+Vue.use(IvTable)
 
 new Vue({
   render: h => h(App)

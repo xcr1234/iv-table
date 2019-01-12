@@ -8,7 +8,7 @@
 
 
 ```bash
-npm install iv-tables
+npm install iv-tables@1.3.0
 ```
 
 ```javascript
