@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-      <iv-table v-bind:data="data1" border>
+      <iv-table v-bind:data="data1" border @on-row-click="rowClick" >
+        <iv-table-column tpe="index" label="#"></iv-table-column>
         <iv-table-column label="Name" prop="name"></iv-table-column>
         <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
         <iv-table-column label="Address" prop="address"></iv-table-column>
         <iv-table-column label="操作">
           <template slot-scope="scope">
             <Button type="primary" @click="editRow(scope.row)">增加年龄</Button>
+          </template>
+          <template slot="head">
+            <span style="color: #f00;font-size: 16px">head</span>
           </template>
         </iv-table-column>
       </iv-table>
@@ -50,6 +54,9 @@ export default {
     editRow (row) {
       console.log(row.age)
       row.age = row.age + 1
+    },
+    rowClick (row) {
+      console.log({ ...row })
     }
   }
 }
