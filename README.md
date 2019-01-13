@@ -4,6 +4,8 @@
 
 本框架，支持以标签的形式，写iview的table组件
 
+[在线运行](http://jsfiddle.net/xcr1234/tm9r512o/)
+
 ## 引入
 
 
@@ -17,9 +19,12 @@ import IvTable from 'iv-tables'
 Vue.use(IvTable)
 ```
 
-如果是在浏览器中使用：
+如果是在浏览器中使用（非webpack环境）：
 
 ```html
+<link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="https://unpkg.com/iview/dist/iview.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/iv-tables/dist/iv-table.umd.js"></script>
 
 <script>
@@ -31,7 +36,7 @@ Vue.use(window['iv-table'].default)
 
 本框架有两个组件 `iv-table` 和 `iv-table-column` 分别表示表格主体，和表格的列
 
-[在线运行](http://jsfiddle.net/7cmf9goq/)
+
 
 ```html
 <template>
