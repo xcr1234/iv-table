@@ -1,6 +1,10 @@
 <script>
 import Vue from 'vue'
 
+const isIvTableColumn = (slot) => {
+  return slot.componentOptions && slot.componentOptions.Ctor && slot.componentOptions.Ctor.extendOptions && slot.componentOptions.Ctor.extendOptions.$ivTableColumn
+}
+
 export default {
   name: 'IvTable',
   props: {
@@ -8,7 +12,9 @@ export default {
   },
   computed: {
     columns () {
-      return this.$slots.default.map(slot => {
+      return this.$slots.default.filter(slot => {
+        return isIvTableColumn(slot)
+      }).map(slot => {
         const column = { ...slot.data.attrs }
         column.title = slot.componentOptions.propsData.label
         column.key = slot.componentOptions.propsData.prop

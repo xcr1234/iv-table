@@ -17,9 +17,21 @@ import IvTable from 'iv-tables'
 Vue.use(IvTable)
 ```
 
+如果是在浏览器中使用：
+
+```html
+<script type="text/javascript" src="https://unpkg.com/iv-tables@latest/dist/iv-table.umd.js"></script>
+
+<script>
+Vue.use(window['iv-table'].default)
+</script>
+```
+
 ## 基本用法
 
 本框架有两个组件 `iv-table` 和 `iv-table-column` 分别表示表格主体，和表格的列
+
+[在线运行](http://jsfiddle.net/7cmf9goq/)
 
 ```html
 <template>

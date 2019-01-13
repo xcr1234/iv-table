@@ -1,6 +1,6 @@
 {
   "name": "iv-tables",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": false,
   "main": "dist/iv-table.common.js",
   "homepage": "https://github.com/xcr1234/iv-table",
