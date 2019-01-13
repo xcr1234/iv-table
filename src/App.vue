@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <iv-table v-bind:data="data1" border @on-row-click="rowClick" >
-        <iv-table-column tpe="index" label="#"></iv-table-column>
+        <iv-table-column type="index" label="#"></iv-table-column>
         <iv-table-column label="Name" prop="name"></iv-table-column>
         <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
         <iv-table-column label="Address" prop="address"></iv-table-column>
@@ -12,6 +12,10 @@
           <template slot="head">
             <span style="color: #f00;font-size: 16px">head</span>
           </template>
+        </iv-table-column>
+        <iv-table-column label="Block">
+          <iv-table-column label="Name" prop="name"></iv-table-column>
+          <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
         </iv-table-column>
       </iv-table>
   </div>

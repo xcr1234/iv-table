@@ -5,36 +5,61 @@ const isIvTableColumn = (slot) => {
   return slot.componentOptions && slot.componentOptions.Ctor && slot.componentOptions.Ctor.extendOptions && slot.componentOptions.Ctor.extendOptions.$ivTableColumn
 }
 
+const makeColumn = (slot) => {
+  const column = { ...slot.data.attrs }
+  const label = slot.componentOptions.propsData.label
+  const prop = slot.componentOptions.propsData.prop
+  if (prop) {
+    column.key = prop
+  }
+  if (label) {
+    column.title = label
+  }
+  if (slot.data.scopedSlots) {
+    if (typeof slot.data.scopedSlots.default === 'function') {
+      column.render = (h, scope) => {
+        return slot.data.scopedSlots.default(scope)
+      }
+    }
+    if (typeof slot.data.scopedSlots.head === 'function') {
+      column.renderHeader = (h, scope) => {
+        return slot.data.scopedSlots.head(scope)
+      }
+    }
+    if (Vue.config.devtools) {
+      column.name = 'slot-template' // 在vue devtools显示正常，不会显示unknown components
+    }
+  }
+  if (slot.componentOptions.children) {
+    slot.componentOptions.children.forEach(child => {
+      if (isIvTableColumn(child)) {
+        if (!column.children) {
+          column.children = []
+        }
+        column.children.push(makeColumn(child))
+      }
+    })
+  }
+  return column
+}
+
 export default {
   name: 'IvTable',
   props: {
-    data: Array
+    data: Array,
+    columnMethod: Function
   },
   computed: {
     columns () {
-      return this.$slots.default.filter(slot => {
+      const columns = this.$slots.default.filter(slot => {
         return isIvTableColumn(slot)
       }).map(slot => {
-        const column = { ...slot.data.attrs }
-        column.title = slot.componentOptions.propsData.label
-        column.key = slot.componentOptions.propsData.prop
-        if (slot.data.scopedSlots) {
-          if (typeof slot.data.scopedSlots.default === 'function') {
-            column.render = (h, scope) => {
-              return slot.data.scopedSlots.default(scope)
-            }
-          }
-          if (typeof slot.data.scopedSlots.head === 'function') {
-            column.renderHeader = (h, scope) => {
-              return slot.data.scopedSlots.head(scope)
-            }
-          }
-          if (Vue.config.devtools) {
-            column.name = 'slot-template' // 在vue devtools显示正常，不会显示unknown components
-          }
-        }
-        return column
+        return makeColumn(slot)
       })
+      if (this.columnMethod) {
+        return this.columnMethod(columns)
+      }
+      return columns
     }
   },
   render (h) {

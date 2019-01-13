@@ -121,6 +121,17 @@ scope是参数，可以拿到参数 `scope.row` 、 `scope.index`，分别表示
 
 这里的scope，是列数据，包含 `scope.column` 和 `scope.index`，分别为当前列数据和当前列索引。
 
+## 表头分组
+
+`iv-table-column` 支持嵌套关系，可以渲染出分组表头。
+
+```html
+<iv-table-column label="Block">
+      <iv-table-column label="Name" prop="name"></iv-table-column>
+      <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
+</iv-table-column>
+```
+
 ## 属性/事件
 
 框架兼容标准Table组件的所有属性/事件，例如：
@@ -132,3 +143,53 @@ scope是参数，可以拿到参数 `scope.row` 、 `scope.index`，分别表示
 ```
 
 这里赋值了 `border` 属性，并且监听了 `on-row-click` 事件
+
+具体参考[官方文档](https://www.iviewui.com/components/table)
+
+## 样式
+
+行：通过属性 row-class-name 可以给某一行指定一个样式名称。
+
+```html
+<iv-table row-class-name="">
+
+</iv-table>
+```
+
+列：通过设置字段 className 可以给某一列指定一个样式。
+
+```html
+<iv-table-column className=""></iv-table-column>
+```
+
+由于`iv-table-column` 并没有真正的渲染，因此该标签上的 `style` `class` 等属性会被忽略
+
+单元格：通过给数据 data 设置字段 cellClassName 可以给任意一个单元格指定样式。
+
+
+## 自定义 column 列表
+
+column列表 默认是自动生成的，如果你需要自行定制，可以使用 `columnMethod` 函数
+
+```html
+<template>
+    <iv-table v-bind:columnMethod="myColumn">
+
+    </iv-table>
+</template>
+
+
+<script>
+export default {
+    data(){
+        return {
+            myColumn(columns){
+                // columns 是 默认生成的columns对象，这里可以对其进行修改
+                return columns
+            }
+        }
+    }
+}
+</script>
+
+```
