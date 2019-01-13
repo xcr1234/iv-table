@@ -8,7 +8,7 @@
 
 
 ```bash
-npm install iv-tables@1.3.0
+npm install iv-tables
 ```
 
 ```javascript
@@ -20,7 +20,7 @@ Vue.use(IvTable)
 如果是在浏览器中使用：
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/iv-tables@latest/dist/iv-table.umd.js"></script>
+<script type="text/javascript" src="https://unpkg.com/iv-tables/dist/iv-table.umd.js"></script>
 
 <script>
 Vue.use(window['iv-table'].default)
