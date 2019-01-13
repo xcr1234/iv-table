@@ -1,10 +1,14 @@
 {
   "name": "iv-tables",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "private": false,
   "main": "dist/iv-table.common.js",
   "homepage": "https://github.com/xcr1234/iv-table",
-  "keywords": ["iview","vue","table"],
+  "keywords": [
+    "iview",
+    "vue",
+    "table"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name iv-table src/plugin.js",
