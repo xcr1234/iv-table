@@ -443,6 +443,17 @@ module.exports = function (it, key) {
 
 /***/ }),
 
+/***/ "0a90":
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__("63b6");
+var $parseFloat = __webpack_require__("10ff");
+// 18.2.4 parseFloat(string)
+$export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
+
+
+/***/ }),
+
 /***/ "0d58":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -467,6 +478,21 @@ module.exports = function (index, length) {
   index = toInteger(index);
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
+
+
+/***/ }),
+
+/***/ "10ff":
+/***/ (function(module, exports, __webpack_require__) {
+
+var $parseFloat = __webpack_require__("e53d").parseFloat;
+var $trim = __webpack_require__("a1ce").trim;
+
+module.exports = 1 / $parseFloat(__webpack_require__("e692") + '-0') !== -Infinity ? function parseFloat(str) {
+  var string = $trim(String(str), 3);
+  var result = $parseFloat(string);
+  return result === 0 && string.charAt(0) == '-' ? -0 : result;
+} : $parseFloat;
 
 
 /***/ }),
@@ -601,8 +627,8 @@ var global = __webpack_require__("7726");
 var hide = __webpack_require__("32e9");
 var has = __webpack_require__("69a8");
 var SRC = __webpack_require__("ca5a")('src');
+var $toString = __webpack_require__("fa5b");
 var TO_STRING = 'toString';
-var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
 __webpack_require__("8378").inspectSource = function (it) {
@@ -1011,9 +1037,16 @@ module.exports = function (key) {
 /***/ "584a":
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.2' };
+var core = module.exports = { version: '2.6.5' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
+
+/***/ }),
+
+/***/ "59ad":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("7be7");
 
 /***/ }),
 
@@ -1350,6 +1383,15 @@ module.exports = function (exec) {
 
 /***/ }),
 
+/***/ "7be7":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("0a90");
+module.exports = __webpack_require__("584a").parseFloat;
+
+
+/***/ }),
+
 /***/ "7e90":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1387,7 +1429,7 @@ module.exports = function (it, tag, stat) {
 /***/ "8378":
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.2' };
+var core = module.exports = { version: '2.6.5' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1595,6 +1637,43 @@ module.exports = Object.create || function create(O, Properties) {
   } else result = createDict();
   return Properties === undefined ? result : dPs(result, Properties);
 };
+
+
+/***/ }),
+
+/***/ "a1ce":
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__("63b6");
+var defined = __webpack_require__("25eb");
+var fails = __webpack_require__("294c");
+var spaces = __webpack_require__("e692");
+var space = '[' + spaces + ']';
+var non = '\u200b\u0085';
+var ltrim = RegExp('^' + space + space + '*');
+var rtrim = RegExp(space + space + '*$');
+
+var exporter = function (KEY, exec, ALIAS) {
+  var exp = {};
+  var FORCE = fails(function () {
+    return !!spaces[KEY]() || non[KEY]() != non;
+  });
+  var fn = exp[KEY] = FORCE ? exec(trim) : spaces[KEY];
+  if (ALIAS) exp[ALIAS] = fn;
+  $export($export.P + $export.F * FORCE, 'String', exp);
+};
+
+// 1 -> String#trimLeft
+// 2 -> String#trimRight
+// 3 -> String#trim
+var trim = exporter.trim = function (string, TYPE) {
+  string = String(defined(string));
+  if (TYPE & 1) string = string.replace(ltrim, '');
+  if (TYPE & 2) string = string.replace(rtrim, '');
+  return string;
+};
+
+module.exports = exporter;
 
 
 /***/ }),
@@ -2070,6 +2149,15 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /***/ }),
 
+/***/ "e692":
+/***/ (function(module, exports) {
+
+module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
+  '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+
+
+/***/ }),
+
 /***/ "e6f3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2173,6 +2261,14 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "fa5b":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("5537")('native-function-to-string', Function.toString);
+
+
+/***/ }),
+
 /***/ "fab2":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2207,6 +2303,10 @@ var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpac
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
 var web_dom_iterable = __webpack_require__("ac6a");
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/parse-float.js
+var parse_float = __webpack_require__("59ad");
+var parse_float_default = /*#__PURE__*/__webpack_require__.n(parse_float);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js
 var get_own_property_descriptor = __webpack_require__("268f");
@@ -2269,6 +2369,7 @@ function _objectSpread(target) {
 
 
 
+
 var isIvTableColumn = function isIvTableColumn(slot) {
   return slot.componentOptions && slot.componentOptions.Ctor && slot.componentOptions.Ctor.extendOptions && slot.componentOptions.Ctor.extendOptions.$ivTableColumn;
 };
@@ -2285,6 +2386,19 @@ var iv_tablevue_type_script_lang_js_makeColumn = function makeColumn(slot) {
 
   if (label) {
     column.title = label;
+  } // 如果width是string，自动转成number:
+
+
+  if (typeof column.width === 'string') {
+    column.width = parse_float_default()(column.width);
+  }
+
+  if (typeof column.minWidth === 'string') {
+    column.minWidth = parse_float_default()(column.minWidth);
+  }
+
+  if (typeof column.maxWidth === 'string') {
+    column.maxWidth = parse_float_default()(column.maxWidth);
   }
 
   if (slot.data.scopedSlots) {
@@ -2328,11 +2442,7 @@ var iv_tablevue_type_script_lang_js_makeColumn = function makeColumn(slot) {
   },
   computed: {
     columns: function columns() {
-      var columns = this.$slots.default.filter(function (slot) {
-        return isIvTableColumn(slot);
-      }).map(function (slot) {
-        return iv_tablevue_type_script_lang_js_makeColumn(slot);
-      });
+      var columns = this.$slots.default.filter(isIvTableColumn).map(iv_tablevue_type_script_lang_js_makeColumn);
 
       if (this.columnMethod) {
         return this.columnMethod(columns);
@@ -2476,7 +2586,6 @@ var component = normalizeComponent(
   
 )
 
-component.options.__file = "iv-table.vue"
 /* harmony default export */ var iv_table = (component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/compoents/iv-table-column.vue?vue&type=script&lang=js&
 /* harmony default export */ var iv_table_columnvue_type_script_lang_js_ = ({
@@ -2508,9 +2617,66 @@ var iv_table_column_component = normalizeComponent(
   
 )
 
-iv_table_column_component.options.__file = "iv-table-column.vue"
 /* harmony default export */ var iv_table_column = (iv_table_column_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/compoents/iv-table-input.vue?vue&type=script&lang=js&
+
+//
+/* harmony default export */ var iv_table_inputvue_type_script_lang_js_ = ({
+  name: 'IvTableInput',
+  props: {
+    data: {
+      type: Array,
+      required: true
+    },
+    scope: {
+      type: Object,
+      required: true
+    },
+    attr: {
+      type: String,
+      required: true
+    }
+  },
+  render: function render(h) {
+    var _this = this;
+
+    return h('i-input', {
+      props: _objectSpread({}, this.$attrs, {
+        value: this.scope.row[this.attr]
+      }),
+      on: _objectSpread({}, this.$listeners, {
+        'on-change': function onChange(e) {
+          _this.scope.row[_this.attr] = e.target.value;
+          _this.data[_this.scope.index] = _this.scope.row;
+        }
+      })
+    });
+  }
+});
+// CONCATENATED MODULE: ./src/compoents/iv-table-input.vue?vue&type=script&lang=js&
+ /* harmony default export */ var compoents_iv_table_inputvue_type_script_lang_js_ = (iv_table_inputvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/compoents/iv-table-input.vue
+var iv_table_input_render, iv_table_input_staticRenderFns
+
+
+
+
+/* normalize component */
+
+var iv_table_input_component = normalizeComponent(
+  compoents_iv_table_inputvue_type_script_lang_js_,
+  iv_table_input_render,
+  iv_table_input_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var iv_table_input = (iv_table_input_component.exports);
 // CONCATENATED MODULE: ./src/plugin.js
+
 
 
 
@@ -2518,6 +2684,7 @@ iv_table_column_component.options.__file = "iv-table-column.vue"
   install: function install(options) {
     external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('IvTable', iv_table);
     external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('IvTableColumn', iv_table_column);
+    external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('IvTableInput', iv_table_input);
   }
 });
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
