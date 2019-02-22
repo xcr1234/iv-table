@@ -2,8 +2,8 @@
   <div id="app">
       <iv-table v-bind:data="data1" border @on-row-click="rowClick" >
         <iv-table-column type="index" label="#"></iv-table-column>
-        <iv-table-column label="Name" prop="name"></iv-table-column>
-        <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
+        <iv-table-column label="Name" prop="name" width="200"></iv-table-column>
+        <iv-table-column label="Age" prop="age" align="right" width="200"></iv-table-column>
         <iv-table-column label="Address" prop="address"></iv-table-column>
         <iv-table-column label="操作">
           <template slot-scope="scope">
@@ -16,6 +16,11 @@
         <iv-table-column label="Block">
           <iv-table-column label="Name" prop="name"></iv-table-column>
           <iv-table-column label="Age" prop="age" align="right"></iv-table-column>
+        </iv-table-column>
+        <iv-table-column label="input">
+          <template slot-scope="scope">
+            <iv-table-input :data="data1" :scope="scope" attr="address"/>
+          </template>
         </iv-table-column>
       </iv-table>
   </div>

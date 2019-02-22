@@ -101,6 +101,25 @@ scope是参数，可以拿到参数 `scope.row` 、 `scope.index`，分别表示
 
 需要注意的是，`scope.row` 和 原始对象 是两个不同的对象 如果修改 `scope.row` ，原始对象不会修改
 
+## 输入框
+
+默认情况下，如果在表格中渲染Input组件时，Input组件修改表格data时，Input组件会失去焦点。
+
+参考[issue](https://github.com/iview/iview/issues/1781)
+
+这里封装了一个`iv-table-input`标签，可以解决该bug，用法是
+
+```html
+<iv-table-column label="input">
+     <template slot-scope="scope">
+        <iv-table-input type="text" :data="data1" :scope="scope" attr="address"/>
+     </template>
+</iv-table-column>
+```
+
+需要将表格data、scope对象、要修改的属性名都作为参数传进去
+
+
 ## 可展开 
 
 当表格内容较多不能一次性完全展示时使用。用法与自定义列一样，只是加上了 `type="expand"` 参数，[参考](https://www.iviewui.com/components/table#KZK)

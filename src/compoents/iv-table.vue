@@ -15,6 +15,16 @@ const makeColumn = (slot) => {
   if (label) {
     column.title = label
   }
+  // 如果width是string，自动转成number:
+  if (typeof column.width === 'string') {
+    column.width = parseFloat(column.width)
+  }
+  if (typeof column.minWidth === 'string') {
+    column.minWidth = parseFloat(column.minWidth)
+  }
+  if (typeof column.maxWidth === 'string') {
+    column.maxWidth = parseFloat(column.maxWidth)
+  }
   if (slot.data.scopedSlots) {
     if (typeof slot.data.scopedSlots.default === 'function') {
       column.render = (h, scope) => {
@@ -51,11 +61,7 @@ export default {
   },
   computed: {
     columns () {
-      const columns = this.$slots.default.filter(slot => {
-        return isIvTableColumn(slot)
-      }).map(slot => {
-        return makeColumn(slot)
-      })
+      const columns = this.$slots.default.filter(isIvTableColumn).map(makeColumn)
       if (this.columnMethod) {
         return this.columnMethod(columns)
       }
